@@ -11,5 +11,7 @@ I considered a simple UI for it with the help of Flask
 
 I am trying to make it better and better in the next versions..!
 
+![output](https://github.com/MojtabaZarreh/Disease-diagnosis-by-explaining-the-patient-s-symptoms-BERT-model-/assets/71370569/b9e40893-8e91-4bc3-87a1-fa2708f16f92)
+
 # Dataset
 https://huggingface.co/datasets/gretelai/symptom_to_diagnosis
