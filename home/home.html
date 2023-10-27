@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='homestyle.css') }}">
+    <!-- <link rel= "stylesheet" type= "text/css" href= "../static/homestyle.css"> -->
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title">DiagnoBot V1</div>
+        <div class="form">
+            <div id='chatbox' class="bot-inbox inbox">
+                <div class="icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="msg-header">
+                    <p>Hello there, how can I help you ?</p>
+                </div>
+            </div>
+        </div>
+        <div class="typing-field">
+            <div class="input-data">
+                <input id="user-message" type="text" placeholder="Type something here.." required>
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        const sendButton = document.getElementById("send-btn");
+  
+        sendButton.addEventListener("click", () => {
+            const userMessageInput = document.getElementById("user-message");
+            const userMessage = userMessageInput.value;
+            appendMessage("User", userMessage);
+            userMessageInput.value = "Detecting and processing...";
+            userMessageInput.disabled = true;
+            setTimeout(() => {
+            // Send user message to the server for processing
+            fetch("/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ text: userMessage })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const botResponse = data.response;
+                appendMessage("Bot", botResponse);
+            })
+            .catch(error => console.error(error));
+            userMessageInput.value = '';
+            userMessageInput.disabled = false;
+        }, 5000); // Delay for 5 seconds
+    });
+        
+        function appendMessage(sender, message) {
+            const chatbox = document.querySelector(".form");
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("bot-inbox", "inbox");
+            messageDiv.classList.add(sender === "User" ? "user-message" : "bot-message");
+            
+            messageDiv.innerHTML = `
+                <div class="usericon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="usermsg-header">
+                    <p>${message}</p>
+                </div>
+            `;
+            chatbox.appendChild(messageDiv);
+        
+            // Scroll to the bottom of the chatbox
+            chatbox.scrollTop = chatbox.scrollHeight;
+          }
+        
+        </script>
+
+</body>
+</html>
