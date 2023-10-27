@@ -6,7 +6,8 @@ But it still needs a lot of improvement and I am trying to work on prescribing m
 
 I considered a simple UI for it with the help of Flask
 
-https://github.com/MojtabaZarreh/Disease-diagnosis-by-explaining-the-patient-s-symptoms-BERT-model-/assets/71370569/785787a8-512b-457f-b1d1-4a1be635523c
+![TestModel](https://github.com/MojtabaZarreh/Disease-diagnosis-by-explaining-the-patient-s-symptoms-BERT-model-/assets/71370569/3605c6ad-fa40-4ec1-94a2-4478c7d1aaa8)
+
 
 I am trying to make it better and better in the next versions..!
 
